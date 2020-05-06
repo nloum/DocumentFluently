@@ -512,18 +512,3 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/rider,linux,macos,windows,dotnetcore,visualstudio,visualstudiocode
-src/FluentMan/.idea/.idea.FluentMan/.idea/encodings.xml
-src/FluentMan/.idea/.idea.FluentMan/.idea/indexLayout.xml
-src/FluentMan/.idea/.idea.FluentMan/.idea/misc.xml
-src/FluentMan/.idea/.idea.FluentMan/.idea/modules.xml
-src/FluentMan/.idea/.idea.FluentMan/.idea/projectSettingsUpdater.xml
-src/FluentMan/.idea/.idea.FluentMan/.idea/vcs.xml
-src/FluentMan/.idea/.idea.FluentMan/riderModule.iml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/contentModel.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/encodings.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/indexLayout.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/misc.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/modules.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/projectSettingsUpdater.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/.idea/vcs.xml
-src/DocumentFluently/.idea/.idea.DocumentFluently/riderModule.iml
