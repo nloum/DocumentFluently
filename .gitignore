@@ -512,3 +512,12 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/rider,linux,macos,windows,dotnetcore,visualstudio,visualstudiocode
+src/.idea/.idea.DocumentFluently/riderModule.iml
+src/.idea/.idea.DocumentFluently/.idea/vcs.xml
+src/.idea/.idea.DocumentFluently/.idea/projectSettingsUpdater.xml
+src/.idea/.idea.DocumentFluently/.idea/modules.xml
+src/.idea/.idea.DocumentFluently/.idea/misc.xml
+src/.idea/.idea.DocumentFluently/.idea/indexLayout.xml
+src/.idea/.idea.DocumentFluently/.idea/encodings.xml
+src/.idea/.idea.DocumentFluently/.idea/contentModel.xml
+src/.idea/.idea.DocumentFluently/.idea/.name
