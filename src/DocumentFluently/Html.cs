@@ -1,14 +1,12 @@
 using System.Collections.Generic;
+using IoFluently;
 
 namespace DocumentFluently
 {
-    public class Html
+    public class Html : Text
     {
-        public IEnumerable<string> Lines { get; }
-
-        public Html(IEnumerable<string> lines)
+        public Html(IEnumerable<string> lines) : base(lines)
         {
-            Lines = lines;
         }
     }
 }

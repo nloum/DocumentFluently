@@ -8,7 +8,7 @@ namespace DocumentFluently.Documentation
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             var ioService = new IoService(new ReactiveProcessFactory());
 
@@ -18,7 +18,7 @@ namespace DocumentFluently.Documentation
             var readmeMarkdownFile = (repoRoot / "readme.md").AsMarkdownFile();
             var readmeHtmlFile = readmeMarkdownFile.Path.WithExtension(".html").AsHtmlFile();
 
-            var markdown = await readmeMarkdownFile.Read();
+            var markdown = readmeMarkdownFile.Read();
             var html = markdown.ToHtml(x =>
                 x.UseAdvancedExtensions()
                     .UseDiagrams()
@@ -26,7 +26,7 @@ namespace DocumentFluently.Documentation
             html = new Html(new[]{"<html><body><script src=\"https://cdn.jsdelivr.net/npm/mermaid@8.4.0/dist/mermaid.min.js\"></script><script>mermaid.initialize({startOnLoad:true,securityLevel:'loose'});</script>"}
                 .Concat(html.Lines)
                 .Concat(new[]{"</body></html>"}));
-            await readmeHtmlFile.Write(html);
+            readmeHtmlFile.Write(html);
         }
     }
 }

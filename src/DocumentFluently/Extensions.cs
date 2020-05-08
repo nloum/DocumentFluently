@@ -10,13 +10,12 @@ namespace DocumentFluently
     /// </summary>
     public static class Extensions
     {
-        public static FileWithKnownFormat<Html, Html> AsHtmlFile(this AbsolutePath path)
+        public static IFileWithKnownFormatSync<Html, Html> AsHtmlFile(this AbsolutePath path)
         {
-            return new FileWithKnownFormat<Html, Html>(path,
-                async path => new Html(path.ReadLines()), 
-                async (path, markdown) => path.WriteAllLines(markdown.Lines));
+            return path.AsFile(abs => new Html(abs.ReadLines()),
+                (abs, html) => abs.WriteAllLines(html.Lines));
         }
-        
+
         public static Html ToHtml(this Markdown markdown)
         {
             var html = Markdig.Markdown.ToHtml(string.Join("\n", markdown.Lines));
@@ -30,11 +29,10 @@ namespace DocumentFluently
             return new Html(html.Split('\n'));
         }
         
-        public static FileWithKnownFormat<Markdown, Markdown> AsMarkdownFile(this AbsolutePath path)
+        public static IFileWithKnownFormatSync<Markdown, Markdown> AsMarkdownFile(this AbsolutePath path)
         {
-            return new FileWithKnownFormat<Markdown, Markdown>(path,
-                async path => new Markdown(path.ReadLines()), 
-                async (path, markdown) => path.WriteAllLines(markdown.Lines));
+            return path.AsFile(abs => new Markdown(abs.ReadLines()),
+                (abs, markdown) => abs.WriteAllLines(markdown.Lines));
         }
 
         public static Markdown AsMarkdown(this IEnumerable<string> lines)

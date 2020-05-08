@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="IoFluently" Version="1.0.0-alpha002" />
+      <PackageReference Include="IoFluently" Version="1.0.0-alpha007" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,14 +1,12 @@
 using System.Collections.Generic;
+using IoFluently;
 
 namespace DocumentFluently
 {
-    public class Markdown
+    public class Markdown : Text
     {
-        public IEnumerable<string> Lines { get; }
-
-        public Markdown(IEnumerable<string> lines)
+        public Markdown(IEnumerable<string> lines) : base(lines)
         {
-            Lines = lines;
         }
     }
 }
