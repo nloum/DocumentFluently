@@ -39,5 +39,18 @@ namespace DocumentFluently
         {
             return new Markdown(lines);
         }
+
+        public static AbsolutePath wkhtmltopdf(this IFileWithKnownFormatSync<Html> htmlFile, AbsolutePath pdfFilePath = null)
+        {
+            if (pdfFilePath == null)
+            {
+                pdfFilePath = htmlFile.Path.WithExtension(".pdf");
+            }
+
+            var process = htmlFile.Path.IoService.ReactiveProcessFactory.Start("wkhtmltopdf", $"{htmlFile.Path} {pdfFilePath}");
+            process.ExitCode.Wait();
+
+            return pdfFilePath;
+        }
     }
 }

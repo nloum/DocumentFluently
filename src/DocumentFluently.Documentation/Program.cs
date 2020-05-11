@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using IoFluently;
 using Markdig;
 using ReactiveProcesses;
@@ -27,6 +26,8 @@ namespace DocumentFluently.Documentation
                 .Concat(html.Lines)
                 .Concat(new[]{"</body></html>"}));
             readmeHtmlFile.Write(html);
+            
+            var readmePdfFile = readmeHtmlFile.wkhtmltopdf();
         }
     }
 }
