@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="IoFluently" Version="1.0.0-alpha019" />
+      <PackageReference Include="IoFluently" Version="1.1.0-alpha0073" />
       <PackageReference Include="Markdig" Version="0.20.0" />
     </ItemGroup>
 
