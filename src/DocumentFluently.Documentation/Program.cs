@@ -69,6 +69,9 @@ namespace DocumentFluently.Documentation
                         backLinksForThisFile.Add(Tuple.Create(html.Path, linkTo, text));
                     }
 
+                    var parentReadme = string.Equals(html.Path.Name, "readme.md", StringComparison.OrdinalIgnoreCase) ? html.Path.Ancestor(2) / "readme.md" : html.Path.Ancestor(1) / "readme.md";
+                    backLinksForThisFile.Add(Tuple.Create(html.Path, parentReadme, "Parent"));
+                    
                     return backLinksForThisFile.AsEnumerable();
                 })
                 .GroupBy(x => x.Item2)
@@ -119,7 +122,7 @@ namespace DocumentFluently.Documentation
                     "<ul>" + string.Join("\n",
                         backLinksForThisHtml.Select(x =>
                         {
-                            var relativePath = x.Item1.WithExtension(".html").RelativeTo(documentationRoot);
+                            var relativePath = x.Item1.WithExtension(".html").RelativeTo(html.Path.Parent());
                             return
                                     $"<li>This page is \"{x.Item2}\" of - <a href=\"{relativePath}\">{relativePath}</a></li>";
                         })) + "</ul>";
