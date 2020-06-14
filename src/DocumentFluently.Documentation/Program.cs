@@ -17,14 +17,14 @@ namespace DocumentFluently.Documentation
         {
             var service = new IoService(new ReactiveProcessFactory());
             var repositoryRoot = service.CurrentDirectory.Ancestors().First(ancestor => (ancestor / ".git").Exists());
-            var documentationRoot = repositoryRoot / "docs";
+            var documentationRoot = service.ParseAbsolutePath("/Users/family/Resilio Sync/NathanLoumFamily");
 
             var markdownFiles = documentationRoot.Descendants()
                 .ToLiveLinq()
                 .Where(x => x.HasExtension(".md") && x.GetPathType() == PathType.File)
                 .Select(x => x.AsSmallTextFile());
 
-            var htmls = markdownFiles
+            var markdownHtmls = markdownFiles
                 .Select(markdownFile =>
                 {
                     var markdown = markdownFile.Read();
@@ -33,6 +33,17 @@ namespace DocumentFluently.Documentation
                     document.LoadXml(html);
                     return new {markdownFile.Path, Html = document};
                 });
+
+            var docxFiles = documentationRoot.Descendants()
+                .ToLiveLinq()
+                .Where(x => x.HasExtension(".docx") && x.GetPathType() == PathType.File);
+
+            var docxHtmls = docxFiles
+                .Select(docxPath => new {Source = docxPath, Target = docxPath.WithExtension(".html")})
+                .Do(x => x.Source.PandocToHtml(x.Target), x => x.Target.DeleteFile())
+                .Select(x => new {Path = x.Source, Html = x.Target.AsXmlFile().Read()});
+
+            var htmls = markdownHtmls.Concat(docxHtmls, true);
 
             var backLinks = htmls.SelectMany(html =>
                 {
@@ -90,6 +101,13 @@ namespace DocumentFluently.Documentation
                     }
 
                     if (linkEl.Attributes["href"].InnerText.EndsWith(".md"))
+                    {
+                        linkEl.Attributes["href"].InnerText =
+                            linkEl.Attributes["href"].InnerText
+                                .Substring(0, linkEl.Attributes["href"].InnerText.Length - 3) + ".html";
+                    }
+                    
+                    if (linkEl.Attributes["href"].InnerText.EndsWith(".docx"))
                     {
                         linkEl.Attributes["href"].InnerText =
                             linkEl.Attributes["href"].InnerText

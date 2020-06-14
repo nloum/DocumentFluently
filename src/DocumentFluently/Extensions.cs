@@ -40,6 +40,32 @@ namespace DocumentFluently
             return new Markdown(lines);
         }
 
+        public static AbsolutePath PandocToHtml(this AbsolutePath docxFilePath, AbsolutePath htmlFilePath = null)
+        {
+            if (htmlFilePath == null)
+            {
+                htmlFilePath = docxFilePath.WithExtension(".html");
+            }
+
+            var process = docxFilePath.IoService.ReactiveProcessFactory.Start("pandoc", $"-s \"{docxFilePath}\" -o \"{htmlFilePath}\"");
+            process.ExitCode.Wait();
+
+            return htmlFilePath;
+        }
+
+        public static AbsolutePath PandocToPdf(this AbsolutePath docxFilePath, AbsolutePath pdfFilePath = null)
+        {
+            if (pdfFilePath == null)
+            {
+                pdfFilePath = docxFilePath.WithExtension(".pdf");
+            }
+
+            var process = docxFilePath.IoService.ReactiveProcessFactory.Start("pandoc", $"-s \"{docxFilePath}\" -o \"{pdfFilePath}\"");
+            process.ExitCode.Wait();
+
+            return pdfFilePath;
+        }
+
         public static AbsolutePath wkhtmltopdf(this IFileWithKnownFormatSync<Html> htmlFile, AbsolutePath pdfFilePath = null)
         {
             if (pdfFilePath == null)
